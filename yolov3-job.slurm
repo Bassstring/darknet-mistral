@@ -8,7 +8,7 @@
 #SBATCH --account=ku0598
 #SBATCH --nodes=1
 #SBATCH --time=12:00:00
-#SBATCH --mail-type=FAIL,END
+#SBATCH --mail-type=END
 #SBATCH --output=job_%j.out
 #SBATCH --error=err_%j.out
 #SBATCH --job-name=darknet-yolov3
@@ -25,5 +25,5 @@ module load cudnn/$CUDNN_VERSERION
 export PATH="$HOME/bin:$PATH"
 
 make
-srun darknet detector train cfg/obj.data cfg/objv3.cfg darknet53.conv.74
-# srun darknet detector train cfg/obj.data cfg/objv3.cfg backup/objv3.backup
+# srun darknet detector train cfg/obj.data cfg/objv3.cfg darknet53.conv.74
+srun darknet detector train cfg/obj.data cfg/objv3.cfg backup/objv3.backup
