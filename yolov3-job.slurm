@@ -7,6 +7,7 @@
 #SBATCH --partition=gpu
 #SBATCH --account=ku0598
 #SBATCH --nodes=1
+#SBATCH --mem=8192
 #SBATCH --time=12:00:00
 #SBATCH --mail-type=END
 #SBATCH --output=job_%j.out
@@ -25,5 +26,5 @@ module load cudnn/$CUDNN_VERSERION
 export PATH="$HOME/bin:$PATH"
 
 make
-# srun darknet detector train cfg/obj.data cfg/objv3.cfg darknet53.conv.74
-srun darknet detector train cfg/obj.data cfg/objv3.cfg backup/objv3.backup
+srun darknet detector train cfg/obj.data cfg/objv3.cfg -gpus 0,1,2,3
+# srun darknet detector train cfg/obj.data cfg/objv3.cfg backup/objv3.backu -gpus 0,1,2,3
