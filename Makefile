@@ -4,11 +4,6 @@ OPENCV=0
 OPENMP=1
 DEBUG=0
 
-ARCH= -gencode arch=compute_30,code=sm_30 \
-			-gencode arch=compute_35,code=sm_35 \
-			-gencode arch=compute_50,code=[sm_50,compute_50] \
-			-gencode arch=compute_52,code=[sm_52,compute_52]
-
 VPATH=./src/:./examples
 	SLIB=libdarknet.so
 	ALIB=libdarknet.a
@@ -43,16 +38,18 @@ ifeq ($(OPENCV), 1)
 endif
 
 ifeq ($(GPU), 1) 
+	# Change
 	CFLAGS+= -DGPU
-	COMMON+= -DGPU -I/home/dkrz/k203132/cuda9.2/include
-	LDFLAGS+= -L/home/dkrz/k203132/cuda9.2/lib64/stubs -lcuda
-	LDFLAGS+= -L/home/dkrz/k203132/cuda9.2/lib64 -lcuda -lcudart -lcublas -lcurand
+	COMMON+= -DGPU -I/home/dkrz/k203132/cuda10.0/include
+	LDFLAGS+= -L/home/dkrz/k203132/cuda10.0/lib64/stubs -lcuda
+	LDFLAGS+= -L/home/dkrz/k203132/cuda10.0/lib64 -lcuda -lcudart -lcublas -lcurand
 endif
 
 ifeq ($(CUDNN), 1) 
-	COMMON+= -DCUDNN 
+	# Change
+	COMMON+= -DCUDNN -I/home/dkrz/k203132/cuDNN-7.4-for-10/include
 	CFLAGS+= -DCUDNN
-	LDFLAGS+= -lcudnn
+	LDFLAGS+= -L/home/dkrz/k203132/cuDNN-7.4-for-10/lib64 -lcudnn
 endif
 
 OBJ=gemm.o utils.o cuda.o deconvolutional_layer.o convolutional_layer.o list.o image.o activations.o im2col.o col2im.o blas.o crop_layer.o dropout_layer.o maxpool_layer.o softmax_layer.o data.o matrix.o network.o connected_layer.o cost_layer.o parser.o option_list.o detection_layer.o route_layer.o upsample_layer.o box.o normalization_layer.o avgpool_layer.o layer.o local_layer.o shortcut_layer.o logistic_layer.o activation_layer.o rnn_layer.o gru_layer.o crnn_layer.o demo.o batchnorm_layer.o region_layer.o reorg_layer.o tree.o  lstm_layer.o l2norm_layer.o yolo_layer.o iseg_layer.o image_opencv.o
