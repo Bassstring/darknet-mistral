@@ -27,6 +27,7 @@ module load cudnn/$CUDNN_VERSERION
 
 make
 srun nvidia-smi && \
-  srun darknet detector train cfg/obj.data cfg/objv3.cfg backup/objv3.backup -gpus 0,1,2,3
-  # run darknet detector valid cfg/obj.data cfg/objv3.cfg backup/objv3.backup
+  srun darknet detector valid cfg/obj.data cfg/objv3.cfg backup/objv3.backup
+  # srun darknet detector train cfg/obj.data cfg/objv3.cfg backup/objv3.backup -gpus 0,1,2,3
   # srun darknet detector train cfg/obj.data cfg/objv3.cfg -gpus 0,1,2,3
+  # srun darknet detector test cfg/obj.data cfg/objv3.cfg backup/objv3.backup test.png -gpu 0,1,2,3

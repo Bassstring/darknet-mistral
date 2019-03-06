@@ -7,7 +7,7 @@ data_dir = 'train'
 files = glob.glob(join(data_dir, '*.png'))
 
 train_file = open('train.txt', 'w')
-valid_file = open('valid.txt', 'w')
+valid_file = open('test.txt', 'w')
 
 # 20% for validation
 valid_size = 0.2
